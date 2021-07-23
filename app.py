@@ -3,6 +3,9 @@ import requests
 from flask import Flask, url_for, redirect, request
 from flask import render_template
 import requests
+import os
+
+
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -27,10 +30,11 @@ def search_imdb(query_string):
     url = "https://imdb8.p.rapidapi.com/title/auto-complete"
 
     querystring = {"q": query_string}
-
+    key = os.getenv("x-rapidapi-key")
+    host = os.getenv("x-rapidapi-host")
     headers = {
-        'x-rapidapi-key': "a4c04aea99mshca73e9cffd1bdd8p1ff53bjsnb43f353f32c6",
-        'x-rapidapi-host': "imdb8.p.rapidapi.com"
+        'x-rapidapi-key': key,
+        'x-rapidapi-host': host
         }
     try:
         response = requests.request("GET", url, headers=headers, params=querystring)
